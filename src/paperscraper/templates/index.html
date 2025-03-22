@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Paperscraper - Search Papers{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title text-center mb-4">Search Academic Papers</h1>
+                <p class="text-center text-muted mb-4">
+                    Find the most cited papers on any topic using the OpenAlex API.<br>
+                    Enter one search term per line to search for multiple topics.
+                </p>
+                <form method="POST" class="needs-validation" novalidate>
+                    {{ form.csrf_token }}
+                    <div class="mb-3">
+                        {{ form.search_terms.label(class="form-label") }}
+                        {{ form.search_terms(class="form-control", rows="5") }}
+                        <div class="form-text">Enter each search term on a new line</div>
+                        {% if form.search_terms.errors %}
+                            {% for error in form.search_terms.errors %}
+                                <div class="invalid-feedback d-block">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="mb-3 form-check">
+                        {{ form.recent_only(class="form-check-input") }}
+                        {{ form.recent_only.label(class="form-check-label") }}
+                    </div>
+                    <div class="d-grid">
+                        {{ form.submit(class="btn btn-primary btn-lg") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
